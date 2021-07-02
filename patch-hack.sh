@@ -7,22 +7,25 @@
 # ---------------------------------------------------
 
 # 1. Set the path to the downloaded Hack repo here first
-HACK_PATH=""
+HACK_PATH="${DEVTOOLS_DIR}/Hack"
 
 # 2. List your alternate glyphs here
 declare -a alternates=(
-    "u00EC-slab"
-    "u00ED-slab"
-    "u00EF-slab"
-    "u012B-slab"
-    "u012D-slab"
-    "u012F-slab"
-    "u0030-diamond"
-    "u0069-slab"
-    "u0129-slab"
-    "u0131-slab"
-    "u0456-slab"
-    "u0457-slab"
+  "u0030-forwardslash"
+  "u0031-highertopstroke"
+  "u0069-slab"
+  "u006C-slab"
+  "u0074-flattop"
+  "u00EC-slab"
+  "u00ED-slab"
+  "u00EF-slab"
+  "u0129-slab"
+  "u012B-slab"
+  "u012D-slab"
+  "u012F-slab"
+  "u0131-slab"
+  "u0456-slab"
+  "u0457-slab"
 )
 
 # 3. Run this script and enjoy!
@@ -30,27 +33,27 @@ declare -a alternates=(
 # ------------------------------------------------------------------------------------------------ #
 
 if [ -z $HACK_PATH ]; then
-    echo "❌ Set the HACK_PATH variable in this script to your downloaded Hack repo root."
-    exit 1
+  echo "❌ Set the HACK_PATH variable in this script to your downloaded Hack repo root."
+  exit 1
 fi
 
 declare -a styles=("Regular" "Bold" "Italic" "BoldItalic")
 
 for alternate in "${alternates[@]}"
 do
-    for style in "${styles[@]}"
-    do
-        stylePath="${HACK_PATH}/source/Hack-${style}.ufo/glyphs"
-        lowercaseStyle=$(echo "$style" | tr '[:upper:]' '[:lower:]')
-        alternatePath="./glyphs/${alternate}/${lowercaseStyle}"
+  for style in "${styles[@]}"
+  do
+    stylePath="${HACK_PATH}/source/Hack-${style}.ufo/glyphs"
+    lowercaseStyle=$(echo "$style" | tr '[:upper:]' '[:lower:]')
+    alternatePath="./glyphs/${alternate}/${lowercaseStyle}"
 
-        if ! cp "$alternatePath"/*.glif "$stylePath"; then
-            echo "❌ Aborting patching of Hack, check errors above."
-            exit 1
-        fi
-    done
+    if ! cp "$alternatePath"/*.glif "$stylePath"; then
+      echo "❌ Aborting patching of Hack, check errors above."
+      exit 1
+    fi
+  done
 
-    echo "✅ Patched $alternate"
+  echo "✅ Patched $alternate"
 done
 
 echo
